@@ -5,7 +5,7 @@ namespace suver\settings\models;
 /**
  * This is the ActiveQuery class for [[Settings]].
  *
- * @see Uploads
+ * @see Settings
  */
 class SettingsQuery extends \yii\db\ActiveQuery
 {
