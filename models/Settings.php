@@ -8,17 +8,11 @@ use yii\db\Expression;
 /**
  * This is the model class for table "{{%suver-settings}}".
  *
- * @property integer $id
- * @property string $model
- * @property integer $parent_id
- * @property string $mime_type
- * @property integer $size
- * @property string $original_name
- * @property string $name
- * @property string $extension
+ * @property string $key
+ * @property integer $user_id
+ * @property string $params
+ * @property string $value
  * @property integer $type
- * @property string $created_at
- * @property string $updated_at
  */
 class Settings extends \yii\db\ActiveRecord
 {
@@ -41,10 +35,10 @@ class Settings extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['type', 'key'], 'required'],
-            [['option', 'type'], 'integer'],
-            [['text', 'params'], 'safe'],
-            [['value', 'key'], 'string', 'max' => 255],
+            [['key'], 'required'],
+            [['user_id', 'type'], 'integer'],
+            [['value', 'params'], 'safe'],
+            [['key'], 'string', 'max' => 255],
         ];
     }
 
@@ -57,8 +51,7 @@ class Settings extends \yii\db\ActiveRecord
             'type' => Yii::t('common', 'Тип'),
             'key' => Yii::t('common', 'Ключь'),
             'value' => Yii::t('common', 'Значение'),
-            'text' => Yii::t('common', 'Значение'),
-            'option' => Yii::t('common', 'Опция'),
+            'user_id' => Yii::t('common', 'Пользователь'),
             'params' => Yii::t('common', 'Параметры'),
         ];
     }

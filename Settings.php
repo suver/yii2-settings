@@ -50,7 +50,7 @@ class Settings extends Object
     const TYPE_FILE = 7;
 
     /**
-     * @var Settings AR model
+     * @var SettingsModel AR model
      */
     public $model;
 
@@ -126,7 +126,6 @@ class Settings extends Object
      * @return mixed
      */
     public function set($value) {
-
         switch ($this->model->type) {
 
             case static::TYPE_PARAM:
@@ -159,14 +158,37 @@ class Settings extends Object
 
             default:
                 return $this->_setUnknown($value);
+
         }
+    }
+
+    /**
+     * Удаляет настройку
+     * @param $default
+     * @return mixed
+     */
+    public function delete() {
+        return $this->model->delete();
+    }
+
+    /**
+     * Удаляет значение настройки
+     * @param $default
+     * @return mixed
+     */
+    public function clear() {
+        $this->model->value = null;
+        return $this->model->save();
     }
 
     protected function _setParam($value) {
         $params = $this->params();
         if(isset($params[$value])) {
             $this->model->value = $value;
-            return $this->model->save();
+            if(!$this->model->save()) {
+                throw new Exception($this->getModelErrorAsString());
+            }
+            return true;
         }
         else {
             throw new Exception('Incorrect value for param');
@@ -177,7 +199,10 @@ class Settings extends Object
         $params = $this->params();
         if(isset($params[$value])) {
             $this->model->value = $value;
-            return $this->model->save();
+            if(!$this->model->save()) {
+                throw new Exception($this->getModelErrorAsString());
+            }
+            return true;
         }
         else {
             throw new Exception('Incorrect value for param');
@@ -187,7 +212,10 @@ class Settings extends Object
     protected function _setText($value) {
         if(is_string($value)) {
             $this->model->value = $value;
-            return $this->model->save();
+            if(!$this->model->save()) {
+                throw new Exception($this->getModelErrorAsString());
+            }
+            return true;
         }
         else {
             throw new Exception('Incorrect value');
@@ -197,7 +225,10 @@ class Settings extends Object
     protected function _setVarchar($value) {
         if(is_string($value) && strlen($value) <= 255) {
             $this->model->value = $value;
-            return $this->model->save();
+            if(!$this->model->save()) {
+                throw new Exception($this->getModelErrorAsString());
+            }
+            return true;
         }
         else {
             throw new Exception('Incorrect value');
@@ -207,7 +238,10 @@ class Settings extends Object
     protected function _setArray($value) {
         if(is_array($value)) {
             $this->model->value = Json::encode($value);
-            return $this->model->save();
+            if(!$this->model->save()) {
+                throw new Exception($this->getModelErrorAsString());
+            }
+            return true;
         }
         else {
             throw new Exception('Incorrect value');
@@ -217,7 +251,10 @@ class Settings extends Object
     protected function _setInt($value) {
         if(is_numeric($value)) {
             $this->model->value = $value;
-            return $this->model->save();
+            if(!$this->model->save()) {
+                throw new Exception($this->getModelErrorAsString());
+            }
+            return true;
         }
         else {
             throw new Exception('Incorrect value');
@@ -227,7 +264,10 @@ class Settings extends Object
     protected function _setFile($value) {
         if(is_string($value) && strlen($value) <= 255) {
             $this->model->value = $value;
-            return $this->model->save();
+            if(!$this->model->save()) {
+                throw new Exception($this->getModelErrorAsString());
+            }
+            return true;
         }
         else {
             throw new Exception('Incorrect value');
@@ -237,11 +277,25 @@ class Settings extends Object
     protected function _setUnknown($value) {
         if(is_string($value)) {
             $this->model->value = $value;
-            return $this->model->save();
+            if(!$this->model->save()) {
+                throw new Exception($this->getModelErrorAsString());
+            }
+            return true;
         }
         else {
             throw new Exception('Incorrect value');
         }
+    }
+
+    protected function getModelErrorAsString() {
+        if($this->model->hasErrors()) {
+            $string = '';
+            foreach($this->model->getErrors() as $error) {
+                $string .= implode("", $error);
+            }
+            return $string;
+        }
+        return false;
     }
 
     /**

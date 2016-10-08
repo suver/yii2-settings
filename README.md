@@ -100,4 +100,31 @@ var_dump(Settings::get('param-option')->value(1));
 var_dump(Settings::get('param-option')->param(1));
 //=> 3
 
+
+/**
+ * Delete setting 
+ */
+ 
+Settings::get('param-int')->delete();
+//=> true
+
+
+
+/**
+ * Clear setting 
+ */
+Settings::get('param-varchar')->set("value");
+//=> true
+
+Settings::get('param-varchar')->value();
+//=> value
+
+
+Settings::get('param-varchar')->clear(");
+//=> true
+
+
+Settings::get('param-varchar')->value();
+//=> null
+
 ```
