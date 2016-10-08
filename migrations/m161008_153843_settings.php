@@ -2,7 +2,7 @@
 
 use yii\db\Migration;
 
-class m161005_124320_settings extends Migration
+class m161008_153843_settings extends Migration
 {
     public function up()
     {
@@ -18,7 +18,7 @@ class m161005_124320_settings extends Migration
 
     public function down()
     {
-        echo "m161005_124320_uploads cannot be reverted.\n";
+        echo "m161008_153843_settings cannot be reverted.\n";
 
         return false;
     }
