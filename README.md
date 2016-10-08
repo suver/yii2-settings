@@ -31,6 +31,21 @@ How USE
 
 
 /**
+ * Configure setting 
+ */
+ 
+Settings::get('param-int')->configure(Settings::TYPE_INT);
+//=> true
+
+Settings::get('param-array')->configure(Settings::TYPE_ARRAY);
+//=> true
+
+Settings::get('param-param')->configure(Settings::TYPE_PARAM, [1 => ['text'=>'one'],2 => ['text'=>'two'],3 => ['text'=>'threa']]);
+//=> true
+
+
+
+/**
  * Set and configure setting 
  */
  
@@ -54,6 +69,18 @@ Settings::get('param-option')->configure(Settings::TYPE_OPTIONS, [1=>'one', 2=>'
 
 Settings::get('param-param')->configure(Settings::TYPE_PARAM, [1 => ['text'=>'one'],2 => ['text'=>'two'],3 => ['text'=>'threa']])->set(5);
 //=> Exception
+
+
+
+/**
+ * Set setting 
+ */
+ 
+Settings::get('param-int')->set(4);
+//=> true
+
+Settings::get('param-varchar')->set("string");
+//=> true
 
 
 /**
