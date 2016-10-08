@@ -305,7 +305,6 @@ class Settings extends Object
         $this->model->type = $type;
         $this->model->params = Json::encode($params);
         $this->model->user_id = $user_id;
-        $this->model->type = $this->type;
         if(!$this->model->save()) {
             throw new Exception($this->model->getErrors());
         }
