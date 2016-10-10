@@ -21,7 +21,7 @@ class Settings extends \yii\db\ActiveRecord
      */
     public static function tableName()
     {
-        return '{{%suver_settings}}';
+        return '{{%suver-settings}}';
     }
 
     public function behaviors()
