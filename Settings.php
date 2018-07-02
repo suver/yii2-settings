@@ -4,7 +4,7 @@ namespace suver\settings;
 
 use Yii;
 use yii\base\Exception;
-use yii\base\Object;
+use yii\base\BaseObject;
 use suver\settings\models\Settings as SettingsModel;
 use yii\helpers\Json;
 
@@ -12,7 +12,7 @@ use yii\helpers\Json;
  * Class Settings
  * @package yii2-settings
  */
-class Settings extends Object
+class Settings extends BaseObject
 {
     /**
      * Param option
